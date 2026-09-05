@@ -26,36 +26,36 @@ This project investigates how rising/falling interest rates correlate with finan
 ### Bank Risk Overview
 KPI summary (avg provision ratio, current yield spread, highest/lowest risk banks, bank count), provision-to-income trend by bank, and provision-to-income ranking.
 
-![Bank Risk Overview](screenshots/bank_risk_overview.jpg)
+![Bank Risk Overview](screenshots/bank_risk_overview.png)
 
 ### Macro & Coverage Trends
 Net income trends by bank, historical bank reporting coverage (2007-2026), and Fed Funds Rate plotted against aggregate provisioning risk.
 
-![Macro & Coverage Trends](screenshots/macro_coverage_trends.jpg)
+![Macro & Coverage Trends](screenshots/macro_coverage_trends.png)
 
 <details>
 <summary>Individual chart views</summary>
 
 **KPI Summary Cards**
-![KPI Summary Cards](screenshots/kpi_summary_cards.jpg)
+![KPI Summary Cards](screenshots/kpi_summary_cards.png)
 
 **Provision-to-Income Ratio Trend by Bank**
-![Provision to Income Trend](screenshots/provision_to_income_trend.jpg)
+![Provision to Income Trend](screenshots/provision_to_income_trend.png)
 
 **10-Year vs 2-Year Treasury Yield Spread (2007-2025)**
-![Yield Spread](screenshots/yield_spread_10y_2y.jpg)
+![Yield Spread](screenshots/yield_spread_10y_2y.png)
 
 **Provision-to-Income Ratio by Bank (2021-2024 Average)**
-![Provision to Income by Bank](screenshots/provision_to_income_by_bank.jpg)
+![Provision to Income by Bank](screenshots/provision_to_income_by_bank.png)
 
 **Sum of Net Income by End Date and Bank Name**
-![Net Income Trend](screenshots/net_income_trend.jpg)
+![Net Income Trend](screenshots/net_income_trend.png)
 
 **Bank Reporting Coverage by Year (2007-2026)**
-![Bank Reporting Coverage](screenshots/bank_reporting_coverage.jpg)
+![Bank Reporting Coverage](screenshots/bank_reporting_coverage.png)
 
 **Fed Funds Rate vs. Bank Provisioning Risk (2021-2026)**
-![Fed Funds vs Provisioning Risk](screenshots/fed_funds_vs_provisioning_risk.jpg)
+![Fed Funds vs Provisioning Risk](screenshots/fed_funds_vs_provisioning_risk.png)
 
 </details>
 
