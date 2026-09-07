@@ -2,6 +2,12 @@
 
 An end-to-end Business Intelligence and data engineering project analyzing **regional bank financial risk indicators** against **Federal Reserve interest rate data**. Built to demonstrate a full pipeline: raw data ingestion, cloud data warehousing, SQL transformation, and interactive dashboarding.
 
+## Why I Built This
+
+After graduating, I've been working as an IT Support Associate at the Siebel School of Computer and Data Science — a role that keeps me close to technical systems, but not to the kind of hands-on data analysis and modeling I wanted to build a career around. This project was my way of proving that side of myself: a self-directed portfolio piece to demonstrate real data analytics and data science skills, not just tell people I have them.
+
+I'd previously built a **Credit Score Classification** project, which gave me a first taste of working with financial data — but it stayed at the individual-record, machine-learning level. I wanted to go deeper into the transactional and banking side specifically, working with real-world, messier data at an institutional scale rather than a clean, pre-labeled dataset. That pushed me toward pulling actual SEC EDGAR filings and FRED interest rate data, building the full pipeline myself through BigQuery and SQL, and turning it into a Power BI dashboard that tells a real story about how monetary policy flows through to bank-level credit risk.
+
 ## Overview
 
 This project investigates how rising/falling interest rates correlate with financial stress signals (provisioning behavior, net income volatility, yield curve dynamics) across 16 regional banks, using public regulatory and macroeconomic data spanning 2007-2026.
