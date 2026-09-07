@@ -18,8 +18,20 @@ This project investigates how rising/falling interest rates correlate with finan
 
 1. **Ingestion** — Python scripts pull filings data from SEC EDGAR and interest rate series from FRED via their public APIs.
 2. **Storage** — Raw and cleaned data is loaded into BigQuery tables.
-3. **Transformation** — SQL queries model risk indicators by bank and by reporting period, joined against Fed rate movements.
+3. **Transformation** — SQL views model risk indicators by bank and by reporting period, joined against Fed rate movements.
 4. **Visualization** — Power BI connects to the modeled data to produce an interactive dashboard tracking risk indicators by bank and end date.
+
+## SQL Data Pipeline
+
+All transformation logic lives in BigQuery as chained SQL views (see [`sql/`](./sql)), applied in this order:
+
+1. **[`fred_rates_clean`](sql/01_create_fred_rates_clean_view.sql)** — casts raw FRED values to `FLOAT64`, safely handling FRED's `.` placeholder for missing observations.
+2. **[`fred_rates_pivoted`](sql/02_create_fred_rates_pivoted_view.sql)** — pivots long-format FRED series (Fed Funds daily/monthly, 30-year mortgage rate, 10Y-2Y yield spread) into one row per date.
+3. **[`bank_financials_pivoted`](sql/03_create_bank_financials_pivoted_view.sql)** — deduplicates overlapping 10-Q/10-K filings per bank and period (preferring 10-Q), then pivots key XBRL fields (provisions, allowances, net income) into one row per bank per `end_date`.
+4. **[`bank_risk_master`](sql/04_create_bank_risk_master_view.sql)** — joins pivoted bank financials to quarterly-aggregated FRED rates on fiscal quarter end date.
+5. **[`bank_risk_ratios`](sql/05_create_bank_risk_ratios_view.sql)** — computes the core risk metrics used throughout the dashboard: `provision_to_income_ratio` and `allowance_to_provision_ratio`, using `SAFE_DIVIDE` to avoid divide-by-zero errors.
+
+This final `bank_risk_ratios` view is the direct data source for the Power BI report.
 
 ## Dashboard Preview
 
@@ -68,6 +80,12 @@ The full interactive report is available as a downloadable Power BI file: [`bank
 ├── README.md
 ├── bank_risk_dashboard.pbix   # Full interactive Power BI report
 ├── screenshots/               # Dashboard preview images
+├── sql/                       # BigQuery view definitions (transformation pipeline)
+│   ├── 01_create_fred_rates_clean_view.sql
+│   ├── 02_create_fred_rates_pivoted_view.sql
+│   ├── 03_create_bank_financials_pivoted_view.sql
+│   ├── 04_create_bank_risk_master_view.sql
+│   └── 05_create_bank_risk_ratios_view.sql
 └── scripts/
     ├── fetch_data.py          # Pulls data from SEC EDGAR + FRED APIs
     └── download_data.py       # Handles local data download/staging
@@ -77,13 +95,14 @@ The full interactive report is available as a downloadable Power BI file: [`bank
 
 1. Clone this repository.
 2. Review `scripts/fetch_data.py` to see how source data is pulled from SEC EDGAR and FRED.
-3. Open `bank_risk_dashboard.pbix` in Power BI Desktop to explore the finished dashboard.
+3. Review the `sql/` folder to see how raw data is transformed into risk metrics in BigQuery.
+4. Open `bank_risk_dashboard.pbix` in Power BI Desktop to explore the finished dashboard.
 
 ## Key Skills Demonstrated
 
 - API-based data ingestion (SEC EDGAR, FRED)
 - Cloud data warehousing with BigQuery
-- SQL-based data modeling and transformation
+- SQL-based data modeling and transformation (window functions, pivoting, safe joins/division)
 - Interactive BI dashboard design in Power BI
 - End-to-end project structuring for reproducibility
 
